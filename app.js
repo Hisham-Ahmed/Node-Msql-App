@@ -22,12 +22,12 @@ app.get("/", () => {
 });
 // Add Post
 app.get("/add-post", (req, res) => {
-    let post = { title: "Post One", body: "This is post one." };
+    let post = { title: "Post Three", body: "This is post three." };
     let sql = "INSERT INTO posts SET ?";
     db.query(sql, post, (err, result) => {
         if (err) throw err;
         console.log(result);
-        res.send("Posts one added...");
+        res.send("Posts added...");
     });
 });
 // Fetch All posts
@@ -46,5 +46,24 @@ app.get("/get-post/:id", (req, res) => {
         if (err) throw err;
         console.log(result);
         res.send(`Post of id ${req.params.id} fetched...`);
+    });
+});
+// Update post by id
+app.get("/update-post/:id", (req, res) => {
+    let title= "Updated Title";
+    let sql = `UPDATE posts SET title = '${title}' WHERE id = ${req.params.id}`;
+    db.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send(`Post of id ${req.params.id} updated...`);
+    });
+});
+// Delete post by id
+app.get("/delete-post/:id", (req, res) => {
+    let sql = `DELETE FROM posts WHERE id = ${req.params.id}`;
+    db.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send(`Post of id ${req.params.id} deleted...`);
     });
 });
