@@ -2,6 +2,7 @@ const express = require("express");
 const mysql = require("mysql");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 require("dotenv/config");
 const app = express();
 
@@ -30,10 +31,10 @@ mongoose.connect(
 
 app.listen("3000", () => { console.log("Listening on 3000...") });
 
+
+// Middlewares
 app.use(bodyParser.json());
-
-// Routers Middleware
+app.use(cors());
 app.use("/posts", postsRoute);
-
 
 app.get("/", (req, res) => { res.send("This is home page"); });
